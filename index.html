@@ -15,75 +15,66 @@
       max-width: 880px;
       margin: 0 auto;
       overflow: hidden;
-    }
-
-    .custom-carousel {
       position: relative;
-      width: 100%;
-    }
-
-    .carousel-track {
-      display: flex;
-      transition: transform 0.5s ease-in-out;
+      aspect-ratio: 16 / 9;
     }
 
     .carousel-slide {
-      position: relative;
-      width: 100%;
-      flex-shrink: 0;
-    }
-
-    .carousel-slide::before {
-      content: "";
-      display: block;
-      padding-top: 56.25%; /* 16:9 ratio */
-    }
-
-    .carousel-slide img {
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
+      opacity: 0;
+      transition: opacity 1s ease;
+      z-index: 0;
+    }
+
+    .carousel-slide img {
+      width: 100%;
+      height: 100%;
       object-fit: cover;
       display: block;
+    }
+
+    .carousel-slide.active {
+      opacity: 1;
+      z-index: 1;
     }
   </style>
 </head>
 <body>
   <div class="custom-carousel-wrapper">
-    <div class="custom-carousel">
-      <div class="carousel-track" id="carouselTrack">
-        <div class="carousel-slide">
-          <img src="images/woodmode1.jpg" alt="Wood-Mode">
-        </div>
-        <div class="carousel-slide">
-          <img src="images/bridgewood1.jpg" alt="Bridgewood">
-        </div>
-        <div class="carousel-slide">
-          <img src="images/stoll1.jpg" alt="Stoll Industries">
-        </div>
-        <div class="carousel-slide">
-          <img src="images/danver1.jpg" alt="Danver">
-        </div>
-      </div>
+    <div class="carousel-slide active">
+      <img src="images/woodmode1.jpg" alt="Wood-Mode">
+    </div>
+    <div class="carousel-slide">
+      <img src="images/bridgewood1.jpg" alt="Bridgewood">
+    </div>
+    <div class="carousel-slide">
+      <img src="images/stoll1.jpg" alt="Stoll Industries">
+    </div>
+    <div class="carousel-slide">
+      <img src="images/danver1.jpg" alt="Danver">
     </div>
   </div>
 
-<script>
-  let currentIndex = 0;
-  const track = document.getElementById('carouselTrack');
-  const slides = document.querySelectorAll('.carousel-slide');
-  const totalSlides = slides.length;
+  <script>
+    const slides = document.querySelectorAll('.carousel-slide');
+    let currentIndex = 0;
+    const totalSlides = slides.length;
 
-  function goToSlide(index) {
-    track.style.transform = `translateX(-${index * 100}%)`;
-  }
+    function showSlide(index) {
+      slides.forEach((slide, i) => {
+        slide.classList.toggle('active', i === index);
+      });
+    }
 
-  setInterval(() => {
-    currentIndex = (currentIndex + 1) % totalSlides;
-    goToSlide(currentIndex);
-  }, 3000);
-</script>
+    setInterval(() => {
+      currentIndex = (currentIndex + 1) % totalSlides;
+      showSlide(currentIndex);
+    }, 5000); // 5 seconds per slide
+  </script>
 </body>
 </html>
+
