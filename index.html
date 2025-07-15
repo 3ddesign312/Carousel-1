@@ -4,60 +4,56 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Brand Carousel</title>
-<style>
-  body {
-    margin: 0;
-    font-family: sans-serif;
-    background: #ffffff;
-  }
+  <style>
+    body {
+      margin: 0;
+      font-family: sans-serif;
+      background: #fff;
+    }
 
-  .custom-carousel-wrapper {
-    max-width: 880px;
-    margin: 0 auto;
-    padding-bottom: 0px;
-    overflow: hidden;
-  }
+    .custom-carousel-wrapper {
+      max-width: 880px;
+      margin: 0 auto;
+      overflow: hidden;
+    }
 
-  .custom-carousel {
-    position: relative;
-    width: 100%;
-    overflow: hidden;
-  }
+    .custom-carousel {
+      position: relative;
+      width: 100%;
+    }
 
-  .carousel-track {
-    display: flex;
-    transition: transform 0.5s ease-in-out;
-    width: 400%; /* 4 slides */
-  }
+    .carousel-track {
+      display: flex;
+      transition: transform 0.5s ease-in-out;
+    }
 
-  .carousel-slide {
-    width: 100%;
-    position: relative;
-    flex-shrink: 0;
-  }
+    .carousel-slide {
+      position: relative;
+      width: 100%;
+      flex-shrink: 0;
+    }
 
-  /* Maintain 16:9 ratio using padding trick */
-  .carousel-slide::before {
-    content: "";
-    display: block;
-    padding-top: 56.25%; /* 16:9 ratio */
-  }
+    .carousel-slide::before {
+      content: "";
+      display: block;
+      padding-top: 56.25%; /* 16:9 ratio */
+    }
 
-  .carousel-slide img {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-  }
-</style>
+    .carousel-slide img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+  </style>
 </head>
 <body>
   <div class="custom-carousel-wrapper">
-    <div class="custom-carousel" id="customCarousel">
-      <div class="carousel-track">
+    <div class="custom-carousel">
+      <div class="carousel-track" id="carouselTrack">
         <div class="carousel-slide">
           <img src="images/woodmode1.jpg" alt="Wood-Mode">
         </div>
@@ -76,15 +72,14 @@
 
   <script>
     let currentIndex = 0;
-    const track = document.querySelector('.carousel-track');
+    const track = document.getElementById('carouselTrack');
     const slides = document.querySelectorAll('.carousel-slide');
     const totalSlides = slides.length;
 
     setInterval(() => {
       currentIndex = (currentIndex + 1) % totalSlides;
-      track.style.transform = 'translateX(' + (-currentIndex * 100) + '%)';
+      track.style.transform = `translateX(-${currentIndex * 100}%)`;
     }, 3000);
   </script>
 </body>
 </html>
-
